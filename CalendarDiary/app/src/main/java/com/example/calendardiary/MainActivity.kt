@@ -1,28 +1,24 @@
 package com.example.calendardiary
 
-import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Intent
 import kotlinx.coroutines.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import android.util.Log
 import android.view.View
 import com.example.calendardiary.databinding.ActivityMainBinding
-
-import com.example.calendardiary.model.*
-
+import com.example.calendardiary.model.MyDatabase
+import com.example.calendardiary.model.MyDiary
 
 class MainActivity : AppCompatActivity() , View.OnClickListener {
     private val binding by lazy{
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
 
         //달력의 변화가 감지되었을때 다른요일을 클릭했을 경우
         binding.calendarView.setOnDateChangeListener{ view,year,month,dayOfMonth ->
@@ -72,6 +68,13 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             insertDay(date,title,content)
         }
 
+
+        //버튼을 누르게 되면 HistoryActivity로 넘어가게 된다.
+        binding.buttonHistory.setOnClickListener{
+            val intent = Intent(this,HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
     }
     fun offSaveButton(){ //버튼들은 반대로 움직이므로 Save를 나타내냐 안나타내냐로 구분한다.
         binding.saveButton.visibility = View.INVISIBLE //저장버튼 안 나타내기
@@ -114,7 +117,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
                     if(it?.date.equals(date)){
                         Log.d("List" , "데이터가 존재합니다.")
                         CoroutineScope(Dispatchers.Main).launch {
-
                                 offSaveButton()
                                 if(it?.title==null){
                                     binding.diaryTitleTextView.text = ""
@@ -137,7 +139,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
                             resetText()
                             offTextView()
                         }
-
                     }
                 }
         }
@@ -148,7 +149,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             db?.myDao()?.insert(MyDiary(date,title,content ))
         }
     }
-
     fun deleteDay(date:String,title:String, content:String){
         CoroutineScope(Dispatchers.IO).launch {
             val db = MyDatabase.getInstance(this@MainActivity)
@@ -162,7 +162,5 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-
+     }
     }
-    }
-

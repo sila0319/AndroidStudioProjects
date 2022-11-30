@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/CalendaryTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="407dp"
+        android:layout_height="34dp"
         android:text="달력 일기장"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -17,7 +17,6 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,6 +139,15 @@
         app:layout_constraintEnd_toEndOf="@+id/diaryTitleTextView"
         app:layout_constraintStart_toStartOf="@+id/diaryTitleTextView"
         app:layout_constraintTop_toTopOf="@+id/diaryTitleTextView" />
+
+    <Button
+        android:id="@+id/buttonHistory"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:text="일기 전체조회"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="@+id/CalendaryTitle"
+        app:layout_constraintTop_toTopOf="@+id/CalendaryTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

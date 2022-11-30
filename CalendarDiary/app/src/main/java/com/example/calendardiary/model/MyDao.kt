@@ -14,15 +14,12 @@ interface MyDao {
     @Query("SELECT * FROM MyDiary WHERE date = :date")
     suspend fun select(date:String): List<MyDiary>
 
+    @Query("Select * from MyDiary order by date desc")
+    fun selectAll():List<MyDiary>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(diary: MyDiary)
 
     @Delete
     suspend fun delete(diary: MyDiary)
-
-
-
-
-
 }
