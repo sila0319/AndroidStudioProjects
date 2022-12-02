@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(){
     private val binding:ActivityMainBinding by lazy{
         ActivityMainBinding.inflate(layoutInflater)
     }
+    //main -> course -> main 으로 다시 돌아올 경우 데이터 값을 받아온다.
     private val getResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
          val result = it.resultCode
@@ -39,28 +40,31 @@ class MainActivity : AppCompatActivity(){
             R.id.radioButtonAdult -> "성인반"
             else -> "학생반"
         }
+        //해당 intent로 이동하기전에 puyExtra 형식으로 데이터를 담는다.
         val intent = Intent(this, courseActivity:: class.java).apply {
             putExtra("name", binding.editTextTextPersonName.text.toString())
             putExtra("course", course)
         }
         //startActivity(intent)
-        getResult.launch(intent)
+        getResult.launch(intent) //자동적으로 결과값을 리턴해서 받아온다.
 
     }
 
-    private fun updateWidgets(){
-        var progress=0
-        if(binding.editTextTextPersonName.text.isNotEmpty())
-            progress++
-        if(binding.editTextPhone.text.isNotEmpty())
-            progress++
+    private fun updateWidgets(){ //widget업데이트
+        var progress=0 //progress를 초기화해준다.
+        if(binding.editTextTextPersonName.text.isNotEmpty()) //사람이름 텍스트가 비어있지않다면
+            progress++ // 프로그래스바1을 증가.
+        if(binding.editTextPhone.text.isNotEmpty()) //휴대폰 텍스트가 비어있지 않다면
+            progress++ //프로그래스바 1을 증가
         // check radio - 선택된 버튼이 없을 때 -1
         if(binding.radioGroup.checkedRadioButtonId > -1)
             progress++
-        if(binding.checkBoxEURA.isChecked)
-            progress++
+        if(binding.checkBoxEURA.isChecked) //이용약관동의가 체크되어있다면 true
+            progress++ //프로그래스바 1을 증가
 
-        binding.progressBar.progress = progress
+        binding.progressBar.progress = progress //증가한 프로그래스바를 설정해준다.
+
+        //프로그래스바 맥스가4이므로 모든 버튼들이 활성화 되어있다면 전송버튼을 활성화한다.
         binding.buttonApply.isEnabled = progress==binding.progressBar.max
     }
 

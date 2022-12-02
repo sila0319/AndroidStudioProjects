@@ -17,7 +17,7 @@ class DataGenerator{
         @JvmStatic
         fun get():MutableList<ChatRoomInfo>{
             val count = Random.nextInt(1, 100)
-            val list = MutableList(count){
+            val list = MutableList(count){x
                 val imageIndex = Random.nextInt(images.size)
                 val nameLength = Random.nextInt(3, 10)
                 val randomString = (1..nameLength)

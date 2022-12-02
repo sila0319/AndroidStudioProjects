@@ -32,6 +32,7 @@ class courseActivity : AppCompatActivity() {
             course = getStringExtra("course")
             course?.let{binding.textViewCourse.text = it}
         }
+
         binding.buttonCancel.setOnClickListener{finish()}
         binding.buttonComfirm.setOnClickListener{
             setResult(Activity.RESULT_OK)
